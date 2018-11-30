@@ -11,13 +11,6 @@ import numpy as np
 from keras.datasets import mnist
 from tqdm import tqdm
 
-batch_size = 128
-num_classes = 10
-epochs = 12
-
-# input image dimensions
-img_rows, img_cols = 28, 28
-
 label_dirs = {
 	"0": "zero",
 	"1": "one",
