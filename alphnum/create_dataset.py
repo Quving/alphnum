@@ -1,9 +1,5 @@
 #!/usr/bin/python3
 
-"""
-This script extracts the images (jpg.) from the mnist dataset provided by keras.
-"""
-
 import os
 
 import cv2
@@ -26,6 +22,15 @@ label_dirs = {
 
 
 def extract_and_split_jpgs(train=0.7, validation=0.2, test=0.1):
+	"""
+	Extract the images and split them into percentage accordingly to the parameters into
+	train, validation and test-sets.
+
+	:param train:
+	:param validation:
+	:param test:
+	:return:
+	"""
 	for label in label_dirs.values():
 		for type in ["training", "validation", "test"]:
 			path = os.path.join("dataset", type, label)
@@ -39,15 +44,19 @@ def extract_and_split_jpgs(train=0.7, validation=0.2, test=0.1):
 	for idx, label in enumerate(y_train):
 		label_idx_dict[str(label)].append(idx)
 
+	threshold_training = train * 6000
+	threshhold_validation = (validation + train) * 6000
+
 	# Now label_idx_dict looks like this : {"5": [0, 4, 12, 510, 601, 23], "2" = [...], ...}
 	for label, idx_list in tqdm(label_idx_dict.items()):
 		for idx, element in enumerate(idx_list):
-			if idx < 4200:
-				path = os.path.join("dataset", "training", label)
-			elif (4200 <= idx) and (idx < 5400):
-				path = os.path.join("dataset", "validation", label)
+			if idx < threshold_training:
+				path = os.path.join("dataset", "training", label_dirs[label])
+			elif (threshold_training <= idx) and (idx < threshhold_validation):
+				path = os.path.join("dataset", "validation", label_dirs[label])
 			else:
 				path = os.path.join("dataset", "test", label_dirs[label])
+
 			nparray_inv = np.invert(np.array(x_train[element], dtype='uint8'))
 			filename = '{:05d}'.format(element) + ".jpg"
 			cv2.imwrite(os.path.join(path, filename), nparray_inv)
