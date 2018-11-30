@@ -203,4 +203,4 @@ if __name__ == "__main__":
 	save_bottlebeck_features()
 	train_top_model()
 	history = pickle.load(open(history_path, "rb"))
-	plot_loss(history)
+	# plot_loss(history)
