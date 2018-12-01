@@ -18,7 +18,7 @@ img_width, img_height = 224, 224
 train_data_dir = 'dataset/training'
 validation_data_dir = 'dataset/validation'
 top_model_path = 'model/top_model'
-history_path = 'training/training_mnist.json'
+history_path = 'training_100epochs/training/training_mnist.json'
 class_indices_path = 'model/class_indices.npy'
 bottleneck_features_train_samples = 'bottleneck_features/bottleneck_features_train_samples.npy'
 bottleneck_features_validation_samples = 'bottleneck_features/bottleneck_features_validation_samples.npy'
@@ -199,8 +199,8 @@ def create_top_model(shape, num_classes):
 
 
 if __name__ == "__main__":
-	create_folders()
-	save_bottlebeck_features()
-	train_top_model()
+	# create_folders()
+	# save_bottlebeck_features()
+	# train_top_model()
 	history = pickle.load(open(history_path, "rb"))
-	# plot_loss(history)
+	plot_loss(history)
