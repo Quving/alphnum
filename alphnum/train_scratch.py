@@ -15,9 +15,9 @@ img_width, img_height = 28, 28
 # set paths
 train_data_dir = 'dataset/training'
 validation_data_dir = 'dataset/validation'
-top_model_path = 'model/scratch_model'
-history_path = 'training_100epochs/training/training_mnist_scratch.json'
-class_indices_path = 'model/class_indices_scratch.npy'
+top_model_path = 'model/top_model'
+history_path = 'training/training_mnist.json'
+class_indices_path = 'model/class_indices.npy'
 
 # train parameters.
 epochs = 100
@@ -79,12 +79,17 @@ def train_scratch():
     num_classes = len(train_generator.class_indices)
     model = create_top_model(num_classes=num_classes)
 
-    model.fit_generator(
+    history = model.fit_generator(
         generator=train_generator,
         steps_per_epoch=nb_train_samples // batch_size,
         epochs=epochs,
         validation_data=validation_generator,
         validation_steps=nb_validation_samples // batch_size)
+
+    # Persist history and model.
+    save_history(history, history_path)
+    save_model(model, top_model_path)
+    print("Training done.")
 
 
 def plot_loss(history):
