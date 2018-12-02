@@ -1,24 +1,19 @@
 #!/usr/bin/python3
 
 import os
-from os import listdir
-from os.path import isfile, join
-
+from util import Util
 from predictor import Predictor
 
 labels = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"]
 
 
-def get_all_files_from(path):
-    files = [os.path.join(path, f) for f in listdir(path) if isfile(join(path, f))]
-    return files
 
 def evaluate(folder):
     predictor = Predictor()
 
     for label in labels:
         path = os.path.join(folder, label)
-        filenames = get_all_files_from(path)
+        filenames = Util.get_all_files_from(path)
 
 
         predictions = predictor.predict_image(filenames)
@@ -30,6 +25,6 @@ def evaluate(folder):
 
 
 if __name__ == '__main__':
-    evaluate("handwritten_digits")
-    evaluate("handwritten_digits_binary")
-    evaluate("handwritten_digits_resized_binary")
+    evaluate("handwritten_kulli")
+    evaluate("handwritten_kulli_binary")
+    evaluate("handwritten_kulli_resized_binary")

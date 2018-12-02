@@ -5,7 +5,7 @@ from os.path import isfile, join
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
-
+from util import Util
 
 def plot_binary_example():
     img = cv.imread('samples/9_draw.jpg', 0)
@@ -24,17 +24,12 @@ def plot_binary_example():
     plt.show()
 
 
-def get_all_files_from(path, types=[".png", ".jpg"]):
-    files = [os.path.join(path, f) for f in listdir(path) if
-             (isfile(join(path, f)) and (os.path.splitext(f)[1] in types))]
-    return files
-
 
 def binarize_threshold_folder(folder, threshold=75):
     labels = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"]
     for label in labels:
         path = os.path.join(folder, label)
-        filenames = get_all_files_from(path)
+        filenames = Util.get_all_files_from(path)
         print(filenames)
         for filename in filenames:
             img = cv.imread(filename, 0)
@@ -46,7 +41,7 @@ def binarize_otsu_folder(folder):
     labels = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"]
     for label in labels:
         path = os.path.join(folder, label)
-        filenames = get_all_files_from(path)
+        filenames = Util.get_all_files_from(path)
         print(filenames)
         for filename in filenames:
             img = cv.imread(filename, 0)
