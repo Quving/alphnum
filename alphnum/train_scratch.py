@@ -27,7 +27,10 @@ learning_rate = 0.0001
 
 # Create folders
 def create_folders():
-    folders = ["model", "bottleneck_features", "training", "dataset"]
+    folders = ["model",
+               "bottleneck_features",
+               "training",
+               "dataset"]
     for folder in folders:
         if not os.path.exists(folder):
             os.mkdir(folder)
@@ -140,7 +143,8 @@ def create_top_model(num_classes):
     model.add(Dense(num_classes, activation='softmax'))
     opt = optimizers.RMSprop(lr=learning_rate)
     model.compile(optimizer=opt,
-                  loss='categorical_crossentropy', metrics=['accuracy'])
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
     return model
 
 
