@@ -10,7 +10,7 @@ labels = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
 
 def evaluate(folder):
     predictor = Predictor()
-
+    print("===", folder, "===")
     for label in labels:
         path = os.path.join(folder, label)
         filenames = Util.get_all_files_from(path)
@@ -25,6 +25,7 @@ def evaluate(folder):
 
 
 if __name__ == '__main__':
-    evaluate("handwritten_kulli")
-    evaluate("handwritten_kulli_binary")
-    evaluate("handwritten_kulli_resized_binary")
+    evaluate("handwritten_filzer")
+    evaluate("handwritten_filzer_binary")
+    evaluate("handwritten_filzer_resized")
+    evaluate("handwritten_filzer_resized_binary")
