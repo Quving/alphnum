@@ -92,3 +92,7 @@ if __name__ == '__main__':
     binarize_otsu_folder(folder="handwritten_kulli_resized_binary")
     resize_folder(folder="handwritten_kulli_resized_binary", width=28, height=28)
     resize_folder(folder="handwritten_kulli_resized", width=28, height=28)
+    binarize_otsu_folder(folder="handwritten_filzer_binary")
+    binarize_otsu_folder(folder="handwritten_filzer_resized_binary")
+    resize_folder(folder="handwritten_filzer_resized_binary", width=28, height=28)
+    resize_folder(folder="handwritten_filzer_resized", width=28, height=28)
