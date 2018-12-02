@@ -25,29 +25,6 @@ class ImageHelper:
         img = image.load_img(image_path, target_size=target_size)
         return img
 
-    @staticmethod
-    def binarize(image_path):
-        """
-        Binarize image.
-
-        :param image_path:
-        :return:
-        """
-        img = cv.imread(image_path, 0)
-        ret, thresh1 = cv.threshold(img, 127, 255, cv.THRESH_BINARY)
-        image_path_binary = os.path.splitext(image_path)[0] + "_binary" + os.path.splitext(image_path)[1]
-        cv.imwrite(image_path_binary, thresh1)
-        return image_path_binary
-
-    @staticmethod
-    def blurr(image_path):
-        img = cv.imread(image_path, 0)
-        blur = cv.GaussianBlur(img, (5, 5), 0)
-        image_path_blurred = os.path.splitext(image_path)[0] + "_blur" + os.path.splitext(image_path)[1]
-        cv.imwrite(image_path_blurred, blur)
-        return image_path_blurred
-
-
 class ModelHelper:
     @staticmethod
     def load_model(filename_weight, filename_model):
@@ -122,7 +99,7 @@ class Predictor:
         label = inv_map[index]
         return label, np.amax(prediction)
 
-    def predict_image(self, image_paths, binarize=False, blur=False):
+    def predict_image(self, image_paths):
         """
         Given a path to an image, this function returns the correspondent imagel-label and the probability.
         :param image_path:
@@ -130,11 +107,6 @@ class Predictor:
         """
         predictions = list()
         for image_path in image_paths:
-            if blur:
-                image_path = ImageHelper.blurr(image_path)
-            if binarize:
-                image_path = ImageHelper.binarize(image_path)
-
             img = ImageHelper.get_image_by_path(image_path, self.target_size)
 
             x = image.img_to_array(img)
@@ -153,11 +125,8 @@ class Predictor:
 
 
 if __name__ == '__main__':
-    image_paths = ["dataset/test/seven/52077.jpg",
-                   "dataset/6_bold.jpg",
-                   "dataset/9_draw.jpg",
-                   "dataset/4_draw.jpg"]
+    image_paths = ["dataset/test/seven/52077.jpg"]
 
     predictor = Predictor()
-    prediction = predictor.predict_image(image_paths=image_paths, binarize=True, )
+    prediction = predictor.predict_image(image_paths=image_paths)
     pprint(prediction)
