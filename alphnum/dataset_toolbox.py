@@ -24,8 +24,9 @@ def plot_binary_example():
     plt.show()
 
 
-def get_all_files_from(path):
-    files = [os.path.join(path, f) for f in listdir(path) if isfile(join(path, f))]
+def get_all_files_from(path, types=[".png", ".jpg"]):
+    files = [os.path.join(path, f) for f in listdir(path) if
+             (isfile(join(path, f)) and (os.path.splitext(f)[1] in types))]
     return files
 
 
@@ -53,6 +54,7 @@ def binarize_otsu_folder(folder):
 
 
 def otsu(source, target):
+    print(source)
     img = cv.imread(source, 0)
     blur = cv.GaussianBlur(img, (5, 5), 0)
     # find normalized_histogram, and its cumulative distribution function
@@ -84,7 +86,6 @@ def resize_folder(folder, width, height):
     for label in labels:
         path = os.path.join(folder, label)
         filenames = get_all_files_from(path)
-        print(filenames)
         for filename in filenames:
             img = cv.imread(filename, 0)
             resized_image = cv.resize(img, (width, height))
@@ -92,5 +93,6 @@ def resize_folder(folder, width, height):
 
 
 if __name__ == '__main__':
-    binarize_otsu_folder(folder="handwritten_digits_resized_binary")
-    resize_folder(folder="handwritten_digits_resized_binary", width=28, height=28)
+    binarize_otsu_folder(folder="handwritten_kulli_binary")
+    binarize_otsu_folder(folder="handwritten_kulli_resized_binary")
+    resize_folder(folder="handwritten_kulli_resized_binary", width=28, height=28)
