@@ -80,7 +80,7 @@ def resize_folder(folder, width, height):
     labels = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"]
     for label in labels:
         path = os.path.join(folder, label)
-        filenames = get_all_files_from(path)
+        filenames = Util.get_all_files_from(path)
         for filename in filenames:
             img = cv.imread(filename, 0)
             resized_image = cv.resize(img, (width, height))
@@ -91,3 +91,4 @@ if __name__ == '__main__':
     binarize_otsu_folder(folder="handwritten_kulli_binary")
     binarize_otsu_folder(folder="handwritten_kulli_resized_binary")
     resize_folder(folder="handwritten_kulli_resized_binary", width=28, height=28)
+    resize_folder(folder="handwritten_kulli_resized", width=28, height=28)
